@@ -1,0 +1,20 @@
+POST http://localhost:3000/api/issues
+Content-Type: application/json
+
+{
+  "title": "second issue",
+  "description": "it's getting serious you guys"
+}
+
+###
+
+# Bad request
+POST http://localhost:3000/api/issues
+Content-Type: application/json
+
+{
+  "title": 12,
+  "description": true
+}
+
+

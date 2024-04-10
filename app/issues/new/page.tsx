@@ -23,19 +23,21 @@ const NewIssuePage = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
 
+  const onSubmit = () => handleSubmit(async (data) => {
+    try {
+      setIsSubmitting(true);
+      const axiosResponse = await axios.post("/api/issues", data);
+      console.log(axiosResponse.data);
+      router.push("/issues");
+    } catch (error) {
+      setError("An unexpected error occurred.");
+      setIsSubmitting(false);
+    }
+  });
+
   return <>
     <form
-      className="max-w-xl space-y-3" onSubmit={handleSubmit(async (data) => {
-      try {
-        setIsSubmitting(true);
-        const axiosResponse = await axios.post("/api/issues", data);
-        console.log(axiosResponse.data);
-        router.push("/issues");
-      } catch (error) {
-        setError("An unexpected error occurred.");
-        setIsSubmitting(false);
-      }
-    })}
+      className="max-w-xl space-y-3" onSubmit={onSubmit()}
     >
       {error && <Callout.Root color="red">
         <Callout.Text>

@@ -12,53 +12,58 @@ import { z } from "zod";
 import { ErrorMessage } from "@/app/components/ErrorMessage";
 import { Spinner } from "@/app/components/Spinner";
 
-type IssueForm = z.infer<typeof createIssueSchema>
+type IssueForm = z.infer<typeof createIssueSchema>;
 
 const NewIssuePage = () => {
-  const { register, control, handleSubmit, formState: { errors } } = useForm<IssueForm>({
-    resolver: zodResolver(createIssueSchema)
+  const {
+    register,
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<IssueForm>({
+    resolver: zodResolver(createIssueSchema),
   });
   const router = useRouter();
   const [error, setError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  const onSubmit = () =>
+    handleSubmit(async (data) => {
+      try {
+        setIsSubmitting(true);
+        const axiosResponse = await axios.post("/api/issues", data);
+        console.log(axiosResponse.data);
+        router.push("/issues");
+      } catch (error) {
+        setError("An unexpected error occurred.");
+        setIsSubmitting(false);
+      }
+    });
 
-  const onSubmit = () => handleSubmit(async (data) => {
-    try {
-      setIsSubmitting(true);
-      const axiosResponse = await axios.post("/api/issues", data);
-      console.log(axiosResponse.data);
-      router.push("/issues");
-    } catch (error) {
-      setError("An unexpected error occurred.");
-      setIsSubmitting(false);
-    }
-  });
+  return (
+    <>
+      <form className="max-w-xl space-y-3" onSubmit={onSubmit()}>
+        {error && (
+          <Callout.Root color="red">
+            <Callout.Text>{error}</Callout.Text>
+          </Callout.Root>
+        )}
+        <TextField.Root placeholder="title" {...register("title")} />
+        <ErrorMessage>{errors.title?.message}</ErrorMessage>
+        <Controller
+          name="description"
+          control={control}
+          render={({ field }) => (
+            <SimpleMDE placeholder="description" {...field} />
+          )}
+        />
 
-  return <>
-    <form
-      className="max-w-xl space-y-3" onSubmit={onSubmit()}
-    >
-      {error && <Callout.Root color="red">
-        <Callout.Text>
-          {error}
-        </Callout.Text>
-      </Callout.Root>}
-      <TextField.Root
-        placeholder="title"
-        {...register("title")} />
-      <ErrorMessage>{errors.title?.message}</ErrorMessage>
-      <Controller
-        name="description"
-        control={control}
-        render={({ field }) => <SimpleMDE placeholder="description" {...field} />}
-      />
-      <ErrorMessage>{errors.description?.message}</ErrorMessage>
-
-      <Button disabled={isSubmitting}> Submit new issue {isSubmitting && <Spinner />}
-      </Button>
-    </form>
-  </>;
+        <ErrorMessage>{errors.description?.message}</ErrorMessage>
+        <Button disabled={isSubmitting}>
+          Submit new issue {isSubmitting && <Spinner />}
+        </Button>
+      </form>
+    </>
+  );
 };
 export default NewIssuePage;
-

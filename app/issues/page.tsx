@@ -1,14 +1,24 @@
 import React from "react";
 import { Table } from "@radix-ui/themes";
-import prisma from "@/prisma/client";
+
 import { IssueStatusBadge } from "@/app/components/IssueStatusBadge";
 import { IssueActions } from "@/app/issues/issueActions";
-import Link from "next/link";
+import prisma from "@/prisma/client";
+import Link from "@/app/components/Link";
 
 const IssuesPage = async () => {
   const issues = await prisma.issue.findMany();
+
+  // if (issues.length === 0) {
+  //   return (
+  //     <div className={"mx-10"}>
+  //       <IssueActions />
+  //       <Callout.Root color="gray"> No issues found. </Callout.Root>
+  //     </div>
+  //   );
+  // }
   return (
-    <div>
+    <div className={"mx-10"}>
       <IssueActions />
       <Table.Root variant={"surface"}>
         <Table.Header>

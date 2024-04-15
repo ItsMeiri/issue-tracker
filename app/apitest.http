@@ -23,5 +23,13 @@ Content-Type: application/json
   "description": true
 }
 
+### UPDATE issue
+PATCH {{API_URL}}/api/issues/6
+Content-Type: application/json
+
+{
+  "title": "updated issue title",
+  "description": "updated description yay!"
+}
 
 

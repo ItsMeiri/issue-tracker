@@ -13,6 +13,7 @@ import { z } from "zod";
 import { ErrorMessage } from "@/app/components/ErrorMessage";
 import { Spinner } from "@/app/components/Spinner";
 import { Issue } from "@prisma/client";
+import { Submit } from "@radix-ui/react-form";
 
 type IssueFormData = z.infer<typeof IssueSchema>;
 
@@ -32,18 +33,22 @@ const IssueForm = ({ issue }: { issue?: Issue }) => {
   const [error, setError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const onSubmit = () =>
-    handleSubmit(async (data) => {
+  const onSubmit = () => {
+    return handleSubmit(async (data) => {
       try {
         setIsSubmitting(true);
-        const axiosResponse = await axios.post("/api/issues", data);
-        console.log(axiosResponse.data);
+        if (issue) {
+          await axios.patch(`/api/issues/${issue.id}`, data);
+        } else {
+          await axios.post("/api/issues", data);
+        }
         router.push("/issues");
       } catch (error) {
         setError("An unexpected error occurred.");
         setIsSubmitting(false);
       }
     });
+  };
 
   return (
     <>
@@ -70,7 +75,8 @@ const IssueForm = ({ issue }: { issue?: Issue }) => {
 
         <ErrorMessage>{errors.description?.message}</ErrorMessage>
         <Button disabled={isSubmitting}>
-          Submit new issue {isSubmitting && <Spinner />}
+          {issue ? "Update issue" : "Submit new issue"}{" "}
+          {isSubmitting && <Spinner />}
         </Button>
       </form>
     </>

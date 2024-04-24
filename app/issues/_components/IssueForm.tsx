@@ -9,11 +9,10 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { IssueSchema } from "@/app/validationSchemas";
-import { z } from "zod";
 import { ErrorMessage } from "@/app/components/ErrorMessage";
 import { Spinner } from "@/app/components/Spinner";
 import { Issue } from "@prisma/client";
-import { Submit } from "@radix-ui/react-form";
+import { z } from "zod";
 
 type IssueFormData = z.infer<typeof IssueSchema>;
 
@@ -43,6 +42,7 @@ const IssueForm = ({ issue }: { issue?: Issue }) => {
           await axios.post("/api/issues", data);
         }
         router.push("/issues");
+        router.refresh();
       } catch (error) {
         setError("An unexpected error occurred.");
         setIsSubmitting(false);

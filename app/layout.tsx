@@ -28,7 +28,7 @@ export default function RootLayout({
       <body>
         <Theme accentColor="yellow" grayColor="slate" radius="small">
           <NavBar />
-          <main className="p-5">
+          <main className="p -5">
             <Container>{children}</Container>
           </main>
         </Theme>

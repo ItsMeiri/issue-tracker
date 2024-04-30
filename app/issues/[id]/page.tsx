@@ -4,6 +4,7 @@ import { Box, Flex, Grid } from "@radix-ui/themes";
 import EditIssueButton from "@/app/issues/[id]/editIssueButton";
 import { IssueDetails } from "@/app/issues/[id]/issueDetails";
 import DeleteIssueButton from "@/app/issues/[id]/DeleteIssueButton";
+import { Issue } from "@prisma/client";
 
 interface IssueDetailPageProps {
   params: { id: string };

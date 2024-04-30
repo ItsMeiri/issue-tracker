@@ -14,11 +14,13 @@ import {
   Flex,
   Text,
 } from "@radix-ui/themes";
+import { Skeleton } from "@/app/components";
 
 const AuthStatus = () => {
   const { data: session, status } = useSession();
   return (
     <Box>
+      {status === "loading" && <Skeleton width={"3rem"} />}
       {status === "authenticated" && (
         <DropdownMenu.Root>
           <DropdownMenu.Trigger>
@@ -71,7 +73,7 @@ function NavLinks() {
           <Link
             className={classnames({
               "nav-link": true,
-              "!text-zinc-900": path === link.hre,
+              "!text-zinc-900": path === link.href,
             })}
             href={link.href}
           >

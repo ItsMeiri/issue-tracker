@@ -3,6 +3,8 @@ import { Table, Text } from "@radix-ui/themes";
 import { Link, IssueStatusBadge } from "@/app/components";
 import { IssueActions } from "@/app/issues/list/issueActions";
 import prisma from "@/prisma/client";
+import { getServerSession } from "next-auth";
+import authOptions from "@/app/auth/authOptions";
 
 const IssuesPage = async () => {
   const issues = await prisma.issue.findMany();
@@ -15,9 +17,10 @@ const IssuesPage = async () => {
   //     </div>
   //   );
   // }
+  const session = await getServerSession(authOptions);
   return (
     <div className={"mx-10"}>
-      <IssueActions />
+      {session && <IssueActions />}
       {issues.length > 0 ? (
         <Table.Root variant={"surface"}>
           <Table.Header>

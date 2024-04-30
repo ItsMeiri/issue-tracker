@@ -4,11 +4,16 @@
 
 
 :root {
-	--foreground-rgb: 0, 0, 0;
+    --foreground-rgb: 0, 0, 0;
 }
 
 
-
 body {
-	color: rgb(var(--foreground-rgb));
+    color: rgb(var(--foreground-rgb));
+}
+
+@layer utilities {
+    .nav-link {
+        @apply text-zinc-500 transition-colors hover:text-zinc-800;
+    }
 }

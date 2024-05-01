@@ -4,13 +4,14 @@ import { Box, Flex, Grid } from "@radix-ui/themes";
 import EditIssueButton from "@/app/issues/[id]/editIssueButton";
 import { IssueDetails } from "@/app/issues/[id]/issueDetails";
 import DeleteIssueButton from "@/app/issues/[id]/DeleteIssueButton";
-import { Issue } from "@prisma/client";
 import { getServerSession } from "next-auth";
 import AuthOptions from "@/app/auth/authOptions";
 import AssigneeSelect from "@/app/issues/[id]/AssigneeSelect";
 
 interface IssueDetailPageProps {
-  params: { id: string };
+  params: {
+    id: string;
+  };
 }
 
 const IssueDetailPage = async ({ params }: IssueDetailPageProps) => {
@@ -29,7 +30,7 @@ const IssueDetailPage = async ({ params }: IssueDetailPageProps) => {
       {session && (
         <Box>
           <Flex direction={"column"} gap={"4"}>
-            <AssigneeSelect />
+            <AssigneeSelect issue={issue} />
             <EditIssueButton issueId={issue.id} />
             <DeleteIssueButton issueId={issue.id} />
           </Flex>

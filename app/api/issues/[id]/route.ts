@@ -52,7 +52,7 @@ export async function PATCH(
 export async function DELETE(
   request: NextRequest,
   {
-    paras,
+    params,
   }: {
     params: {
       id: string;

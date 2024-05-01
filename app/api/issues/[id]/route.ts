@@ -38,34 +38,26 @@ export async function PATCH(
   if (!issue) {
     return NextResponse.json({ error: "Issue not found" }, { status: 404 });
   }
-  const updatedIssue = await prisma.issue
-    .update({
-      where: { id: parseInt(params.id) },
-      data: {
-        title: title,
-        description: description,
-        assignedToUserId: assignedToUserI,
-      ,
-    })
-    .catch((e) => {
-      console.log(e);
-      return NextResponse.json(
-        { error: "Something went wrong." },
-        { status: 400 ,
-      );
-    });
+  const updatedIssue = await prisma.issue.update({
+    where: { id: parseInt(params.id) },
+    data: {
+      title: title,
+      description: description,
+      assignedToUserId: assignedToUserId,
+    },
+  });
   return NextResponse.json(updatedIssue);
 }
 
 export async function DELETE(
   request: NextRequest,
   {
-    params
+    paras,
   }: {
     params: {
       id: string;
     };
-  }
+  },
 ) {
   const session = await getServerSession(authOptions);
   if (!session)

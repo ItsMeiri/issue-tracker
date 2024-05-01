@@ -7,14 +7,14 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { IssueSchema } from "@/app/validationSchemas";
+import { patchIssueSchema } from "@/app/validationSchemas";
 import { ErrorMessage } from "@/app/components/ErrorMessage";
 import { Spinner } from "@/app/components/Spinner";
 import { Issue } from "@prisma/client";
 import { z } from "zod";
 import SimpleMDE from "react-simplemde-editor";
 
-type IssueFormData = z.infer<typeof IssueSchema>;
+type IssueFormData = z.infer<typeof patchIssueSchema>;
 
 const IssueForm = ({ issue }: { issue?: Issue }) => {
   const {
@@ -23,7 +23,7 @@ const IssueForm = ({ issue }: { issue?: Issue }) => {
     handleSubmit,
     formState: { errors },
   } = useForm<IssueFormData>({
-    resolver: zodResolver(IssueSchema),
+    resolver: zodResolver(patchIssueSchema),
   });
   const router = useRouter();
   const [error, setError] = useState("");

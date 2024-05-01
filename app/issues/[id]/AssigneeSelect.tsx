@@ -1,6 +1,5 @@
 "use client";
 import { Select } from "@radix-ui/themes";
-import { useEffect, useState } from "react";
 import { User } from "@prisma/client";
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";

@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/prisma/client";
-import { IssueSchema } from "@/app/validationSchemas";
+import { issueSchema, patchIssueSchema } from "@/app/validationSchemas";
 import { getServerSession } from "next-auth";
 import authOptions from "@/app/auth/authOptions";
 
@@ -12,7 +12,7 @@ export async function POST(request: NextRequest) {
   if (!body) {
     return NextResponse.json(body.error.errors, { status: 400 });
   }
-  const validation = IssueSchema.safeParse(body);
+  const validation = issueSchema.safeParse(body);
   if (!validation.success) {
     return NextResponse.json(validation.error.errors, { status: 400 });
   }

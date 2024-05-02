@@ -14,7 +14,7 @@ const AssigneeSelect = ({ issue }: { issue: Issue }) => {
       .patch(`/api/issues/${issue.id}`, {
         assignedToUserId: value === "unassigned" ? null : value,
       })
-      .catch((err) => {
+      .catch(() => {
         toast.error("Error assigning issue");
       });
   }

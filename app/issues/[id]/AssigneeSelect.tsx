@@ -50,6 +50,6 @@ const useUsers = () =>
     queryKey: ["users"],
     queryFn: () => axios.get("/api/users").then((res) => res.data),
     staleTime: 1000 * 60, // 1 minute
-    retry: ,
+    retry: 3,
   });
 export default AssigneeSelect;

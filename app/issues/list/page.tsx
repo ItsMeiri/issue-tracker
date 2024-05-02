@@ -60,7 +60,7 @@ const IssuesPage = async ({ searchParams }: SearchProps) => {
                 >
                   <NextLink
                     href={{
-                      query: { ...searchParams, orderBy: column.value ,
+                      query: { ...searchParams, orderBy: column.value },
                     }}
                   >
                     {column.label}

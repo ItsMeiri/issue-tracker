@@ -5,9 +5,26 @@ import { IssueActions } from "@/app/issues/list/issueActions";
 import prisma from "@/prisma/client";
 import { getServerSession } from "next-auth";
 import authOptions from "@/app/auth/authOptions";
+import { Status } from "@prisma/client";
 
-const IssuesPage = async () => {
-  const issues = await prisma.issue.findMany();
+interface SearchProps {
+  searchParams: {
+    status?: Status;
+  };
+}
+
+const IssuesPage = async ({ searchParams }: SearchProps) => {
+  // validate search params
+  searchParams.status &&
+  ["OPEN", "IN_PROGRESS", "CLOSED"].includes(searchParams.status)
+    ? searchParams.status
+    : (searchParams.status = undefined);
+
+  const issues = await prisma.issue.findMany({
+    where: {
+      status: searchParams.status,
+    },
+  });
 
   // if (issues.length === 0) {
   //   return (

@@ -26,18 +26,25 @@ const IssuesPage = async ({ searchParams }: SearchProps) => {
     { label: "Status", value: "status", className: "hidden md:table-cell" },
     { label: "Created", value: "createdAt", className: "hidden md:table-cell" },
   ];
-  searchParams.status &&
-  ["OPEN", "IN_PROGRESS", "CLOSED"].includes(searchParams.status)
-    ? searchParams.status
-    : (searchParams.status = undefined);
+  searchParams.status && // check if the status property is defined
+  ["OPEN", "IN_PROGRESS", "CLOSED"].includes(searchParams.status) // check if the status value is in the array
+    ? searchParams.status // if it is, assign it to the searchParams object
+    : (searchParams.status = undefined); // if not, assign undefined to the status property
+
+  const orderBy =
+    searchParams.orderBy && // check if the orderBy value is defined
+    columns.map((column) => column.value).includes(searchParams.orderBy) // check if the orderBy value is in the columns array
+      ? { [searchParams.orderBy]: "asc" } // if it is, return the orderBy object
+      : undefined; // if not, return undefined
 
   const issues = await prisma.issue.findMany({
     where: {
       status: searchParams.status,
     },
+    orderBy: orderBy,
   });
 
-  // if (issues.length === 0) {
+  // if (issueslength === 0) {
   //   return (
   //     <div className={"mx-10"}>
   //       <IssueActions />

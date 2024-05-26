@@ -29,7 +29,7 @@ const Pagination = ({ itemCount, pageSize, currentPage }: PaginationProps) => {
   };
 
   return (
-    <Flex align={"center"} gap={"1"} my={"2"}>
+    <Flex align={"center"} gap={"1"}>
       <Button
         variant="soft"
         color="gray"

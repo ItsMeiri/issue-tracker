@@ -29,11 +29,11 @@ const Pagination = ({ itemCount, pageSize, currentPage }: PaginationProps) => {
   };
 
   return (
-    <Flex align={"center"} gap={"1"}>
+    <Flex align={"center"} gap={"1"} my={"2"}>
       <Button
         variant="soft"
         color="gray"
-        hidden={currentPage === 1}
+        disabled={currentPage === 1}
         onClick={() => changePage(1)}
       >
         <DoubleArrowLeftIcon />
@@ -41,7 +41,7 @@ const Pagination = ({ itemCount, pageSize, currentPage }: PaginationProps) => {
       <Button
         variant="soft"
         color="gray"
-        hidden={currentPage === 1}
+        disabled={currentPage === 1}
         onClick={() => changePage(currentPage - 1)}
       >
         <ChevronLeftIcon />
@@ -52,7 +52,7 @@ const Pagination = ({ itemCount, pageSize, currentPage }: PaginationProps) => {
       <Button
         variant="soft"
         color="gray"
-        hidden={currentPage === totalPages}
+        disabled={currentPage === totalPages}
         onClick={() => changePage(currentPage + 1)}
       >
         <ChevronRightIcon />
@@ -60,7 +60,7 @@ const Pagination = ({ itemCount, pageSize, currentPage }: PaginationProps) => {
       <Button
         variant="soft"
         color="gray"
-        hidden={currentPage === totalPages}
+        disabled={currentPage === totalPages}
         onClick={() => changePage(totalPages)}
       >
         <DoubleArrowRightIcon />

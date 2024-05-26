@@ -25,7 +25,7 @@ const AuthStatus = () => {
         <DropdownMenu.Root>
           <DropdownMenu.Trigger>
             <Flex gap={"3"} align={"center"} className={"cursor-pointer"}>
-              {session.user!.name}
+              <Text className={"hidden sm:block"}>{session.user!.name}</Text>
               <Avatar
                 src={session.user!.image!}
                 radius={"full"}

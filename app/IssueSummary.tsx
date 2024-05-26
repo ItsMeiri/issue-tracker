@@ -19,7 +19,7 @@ const IssueSummary = ({ open, closed, inProgress }: IssueSummaryProps) => {
     { label: "Issues in progress", value: inProgress, status: "IN_PROGRESS" },
   ];
   return (
-    <Flex gap={"4"}>
+    <Flex gap={"4"} justify={"between"}>
       {statuses.map(({ label, value, status }) => (
         <Card key={label}>
           <Flex direction={"column"} gap={"2"}>

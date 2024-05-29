@@ -71,3 +71,8 @@ const IssuesPage = async ({ searchParams }: SearchProps) => {
 export const dynamic = "force-dynamic";
 
 export default IssuesPage;
+
+export const metadata = {
+  title: "Issue Tracker - Issues List",
+  description: "View all issues in the issue tracker",
+};
